@@ -1,6 +1,19 @@
+:root{
+    --global-flexbox-gap: 1rem;
+    --global-margin-small: 0.5rem;
+    --global-margin-medium: 1rem;
+    --global-input-padding-tpdwn: 0.375rem;
+    --global-input-padding-lftrgt: 0.75rem;
+    --global-font-size: 1.5rem;
+    --global-line-height: 1.5;
+}
+
 .App {
-    text-align: center;
-    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--global-flexbox-gap);
+    align-items: center;
+    margin-top: var(--global-margin-medium);
 }
 
 .App-logo {
@@ -8,18 +21,35 @@
     pointer-events: none;
 }
 
+p {
+    display: inline;
+    font-size: var(--global-font-size);
+}
+
 input[type='text'] {
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
-    margin: 8px;
+    padding: var(--global-input-padding-tpdwn) var(--global-input-padding-lftrgt);
+    font-size: var(--global-font-size);
+    line-height: var(--global-line-height);
+    margin: var(--global-margin-small);
     box-sizing: border-box;
     border: none;
     background: #f8f9fa;
     border-bottom: 2px solid #69d2aa;
 }
 
-input[type='submit'] {
+input[type='url'] {
+    padding: var(--global-input-padding-tpdwn) var(--global-input-padding-lftrgt);
+    font-size: var(--global-font-size);
+    line-height: var(--global-line-height);
+    margin: 0 var(--global-margin-small);
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    background: #f8f9fa;
+    border-bottom: 2px solid #69d2aa;
+    border-radius: 0.25rem;
+}
+
+button[type='submit'] {
     color: #343a40;
     background-color: #69d2aa;
     border-color: #69d2aa;
@@ -30,12 +60,30 @@ input[type='submit'] {
     text-align: center;
     vertical-align: middle;
     border: 1px solid transparent;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
+    padding: var(--global-input-padding-tpdwn) var(--global-input-padding-lftrgt);
+    font-size: var(--global-font-size);
+    line-height: var(--global-line-height);
     border-radius: 0.25rem;
 }
 
-input[type='submit']:hover {
+button[type='submit']:hover {
     color: #fff;
+}
+
+form#shortener {
+    display: flex;
+    flex-direction: column;
+    gap: var(--global-flexbox-gap);
+}
+
+@media (min-width: 768px) {
+    form#shortener {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+.infoMessage {
+    text-align: center;
+    margin: var(--global-margin-small) 0;
 }

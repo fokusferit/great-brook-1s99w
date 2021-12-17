@@ -1,45 +1,71 @@
 /* eslint no-unused-vars: 1 */
 
 import React, { useCallback, useState } from 'react';
+import { InfoMessage } from './InfoMessage/InfoMessage';
+import fetchShortUrl from '../data/fetchShortUrl';
 
 const ShortenUrlForm = () => {
     const [value, setValue] = useState('');
+    const [shortUrl, setShortUrl] = useState('');
+    const [statusMessage, setStatusMessage] = useState('');
 
     const onChange = useCallback(
         (e) => {
-            // TODO: Set the component's new state based on the user's input
+            setValue(e.target.value);
         },
         [
-            /* TODO: Add necessary deps */
+            setValue
         ],
     );
 
-    const onSubmit = useCallback(
+    // Use our own statusMessage to highlight that the provided URL is not matching the expected pattern.
+    const onInvalid = useCallback(
         (e) => {
             e.preventDefault();
-            // TODO: shorten url and copy to clipboard
+            setStatusMessage(`Please provide a valid url`);
         },
         [
-            /* TODO: necessary deps */
+            setStatusMessage
+        ]
+    );
+    
+    const onSubmit = useCallback(
+        async (e) => {
+            e.preventDefault();
+            const isValidURL = e.currentTarget.checkValidity();
+            if(!isValidURL) {
+                setStatusMessage(`Please provide a valid url`); 
+            } else {
+                const shorttedURL = await fetchShortUrl(value);
+                setShortUrl(shorttedURL?.link);
+                setStatusMessage(`Url has been shorten ${shorttedURL?.link} and copied`);
+                navigator.clipboard.writeText(`${shorttedURL?.link}`);
+            }
+        },
+        [
+            value, shortUrl, fetchShortUrl, setStatusMessage, setShortUrl
         ],
     );
 
     return (
-        <form onSubmit={onSubmit}>
+        <>
+        <form id="shortener" onSubmit={onSubmit}>
             <label htmlFor="shorten">
                 Url:
                 <input
-                    placeholder="Url to shorten"
+                    placeholder="Please provide a url to shorten"
                     id="shorten"
-                    type="text"
+                    type="url"
+                    onInvalid={onInvalid}
                     value={value}
                     onChange={onChange}
+                    required
                 />
             </label>
-            <input type="submit" value="Shorten and copy URL" />
-            {/* TODO: show below only when the url has been shortened and copied */}
-            <div>{/* Show shortened url --- copied! */}</div>
+            <button type="submit"> Shorten and copy URL</button>
         </form>
+        <InfoMessage message={statusMessage} />
+        </>
     );
 };
 

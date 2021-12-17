@@ -19,7 +19,7 @@ Select API in the menu
 
 ![Select API](./docs/left-menu.png)
 
-After filling your user password you can request a token
+After filling your user password you can request a token 
 
 ![After filling your user password you can request a token](./docs/access-token.png)
 
@@ -31,9 +31,9 @@ If you are a **full stack developer**, please tackle both backend and frontend p
 
 Bonus points:
 
--   `Validate user data`
+-   `Validate user data` (/)
 -   `Create a test suite`
--   `Create and use reusable components`
+-   `Create and use reusable components` (/)
 -   `Create your own CSS theme (clean & responsive layout)`
 
 Please do not spend more than **2 hours** on this, don’t worry if you don’t finish everything. Please send us a link to your project on GitHub. Good luck and have fun!
@@ -57,3 +57,26 @@ You will also see any lint errors in the console.
 #### `yarn lint`
 
 Check and fix based on linting rules
+
+
+
+## Notes about my solution
+
+
+As many parts of the solution already existed, the challenge of implementing a simple url shortener using bitly was easily done within 30 minutes.
+
+So I tried to provide a bit more functionality:
+
+
+- Validation of the input by using the native InputElement `type=url` and native Web APIs. This way it is accessible while at the same time using my own InfoMessage component I can provide customer error messages.
+
+- I've added just a little more CSS and styling to the solution by using flexbox, gap property and a really simple responsive layout by changing flexbox from row to column layouting.
+
+- I'm stopping around 2h of work and could easily add tests but focused more on providing a thorough solution.
+
+There is definitely still room for improvement:
+
+- Button component could be separated to provide more visual feedback, e.g. small animation.
+- For better testing of smaller parts, the form label could be also separated.
+
+- I've kept the initial structure of having onSubmit, onInvalid and other Callbacks in the `ShortenUrlForm.jsx` but I might be tempted to separate this into callbacks in case we want to have different kind of invalidation handling or other things.
